@@ -52,7 +52,7 @@ public class UsbSerialPlugin implements FlutterPlugin, MethodCallHandler, EventC
             if (intent.getAction().equals(ACTION_USB_ATTACHED)) {
                 Log.d(TAG, "ACTION_USB_ATTACHED");
                 if ( m_EventSink != null ) {
-                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    UsbDevice device = (UsbDevice)intent.getParcelable(UsbManager.EXTRA_DEVICE);
                     HashMap<String, Object> msg = serializeDevice(device);
                     msg.put("event", ACTION_USB_ATTACHED);
                     m_EventSink.success(msg);
@@ -60,7 +60,7 @@ public class UsbSerialPlugin implements FlutterPlugin, MethodCallHandler, EventC
             } else if (intent.getAction().equals(ACTION_USB_DETACHED)) {
                 Log.d(TAG, "ACTION_USB_DETACHED");
                 if ( m_EventSink != null ) {
-                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                    UsbDevice device = (UsbDevice)intent.getParcelable(UsbManager.EXTRA_DEVICE);
                     HashMap<String, Object> msg = serializeDevice(device);
                     msg.put("event", ACTION_USB_DETACHED);
                     m_EventSink.success(msg);
@@ -101,7 +101,7 @@ public class UsbSerialPlugin implements FlutterPlugin, MethodCallHandler, EventC
                     m_Context.unregisterReceiver(this);
                     synchronized (this) {
                         Log.e(TAG, "BroadcastReceiver in sync");
-                        /* UsbDevice device = intent.getParcelableExtra(UsbManager.EXTRA_DEVICE); */
+                        /* UsbDevice device = intent.getParcelable(UsbManager.EXTRA_DEVICE); */
                         if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
                             // createPort(m_DriverIndex, m_PortIndex, m_Result, false);
                             m_CB.onSuccess(m_Device);
